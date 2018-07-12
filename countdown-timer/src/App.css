@@ -1,0 +1,42 @@
+body {
+	font-family:helvetica;
+}
+.App {
+	text-align: center;
+	font-size: 35px;
+	margin-top:20%;
+}
+.App-title {
+	font-size: 50px;
+}
+.Clock-days,
+.Clock-hours,
+.Clock-minutes,
+.Clock-seconds {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 25px;
+	margin:0 4px;
+}
+.set-date {
+
+}
+.set-date input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 250px !important;
+    height: 35px;
+    font-size: 14px;
+    border: 1px solid #999;
+    padding: 0 10px;
+}
+.set-date button {
+	background:#80C2D8;
+	border:0;
+	cursor: pointer;
+	color:white;
+	font-size: initial;
+	margin-left:15px;
+	height: 35px;
+	width: 100px;
+}
