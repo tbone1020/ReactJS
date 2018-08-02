@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './gallery.css';
 
-class Gallery extends Component {
+export default class Gallery extends Component {
 
 	constructor(props){
 		super(props)
@@ -21,24 +21,29 @@ class Gallery extends Component {
 		let audio = new Audio(previewUrl);
 		if(!this.state.playing) {
 			audio.play();
-			this.setState({
-				playing:true,
-				playingUrl: previewUrl,
-				audio
+			this.setState(()=>{
+				return {
+					playing:true,
+					playingUrl: previewUrl,
+					audio
+				}
 			})
 		} else {
 			if(this.state.playingUrl === previewUrl) {
 				this.state.audio.pause();
-				this.setState({
-					playing:false
-				})
+				this.setState(()=>{
+					return{
+						playing:false
+					}	
 			} else {
 				this.state.audio.pause();
 				audio.play();
-				this.setState({
-					playing:true,
-					playingUrl: previewUrl, 
-					audio
+				this.setState(()=>{
+					return {
+						playing:true,
+						playingUrl: previewUrl, 
+						audio
+					}
 				})
 			}
 		}
@@ -64,7 +69,7 @@ class Gallery extends Component {
 								<div className="click-to-play">
 									{
 										this.state.playingUrl === track.preview_url
-										? <span>Pause | |</span>
+										? <span>Pause | |</span> 
 										: <span>Play &#9654;</span>
 									}	
 								</div>
@@ -76,5 +81,3 @@ class Gallery extends Component {
 		)
 	}
 }
-
-export default Gallery;

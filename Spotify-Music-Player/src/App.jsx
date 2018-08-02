@@ -4,25 +4,22 @@ import { FormGroup,FormControl, InputGroup,Glyphicon } from 'react-bootstrap';
 import Profile from './Profile/profile';
 import Gallery from './Gallery/gallery';
 
-// Client ID: ad47915dc6ed4dfd910f12df20df79e2
-// Secret: 2131f21c294c4016acdbc709d2ed9e94
-
-class App extends Component {
+export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			query: '',
 			artist: null,
-			tracks: []
+			tracks: [],
+			message: '',
 		}
 	}
 
 	search() {
 		const BASE_URL = 'https://api.spotify.com/v1/search?';
-		const ACCESS_TOKEN = 'BQD_Pi4IiqFNEwlyMIjoRJ5T3Y60CDcfX_23-A04KqlRGrymJrlKmFqjEvK0u4bVrU0hWGLMkVr5s3R61Q6XkThTolh_dLlBVqECavtPpKG0j0OSlt8DK4wqWJaGD8wqERfCMk6KySmQ1KYZMmOlub7NF4di7gW0k_9Twn0fx6YrXWYE9hdZkQ';
+		const ACCESS_TOKEN = '';
 		const ALBUM_URL = 'https://api.spotify.com/v1/artists/'
 		let FETCH_URL = `${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
-		// const MYHEADERS = new Headers();
 		const MY_OPTIONS = {
 	      	method: 'GET',
 	      	headers:  {
@@ -35,6 +32,28 @@ class App extends Component {
 		 	.then(response => response.json())
 		 	.then(json => {
 		 		let artist = json.artists.items[0];
+		 		if(artist !== undefined){
+		 			// If artist was found
+			 		this.setState(()=>{
+			 			return {artist};
+			 		});
+
+			 		FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`;
+					fetch(FETCH_URL,MY_OPTIONS)
+						.then(response => response.json())
+						.then(json => {
+							const { tracks } = json;
+							this.setState(()=>{
+								return {tracks}
+							});
+						});
+
+		 		} else {
+		 			// If no artist was found
+		 			this.setState((prevState, props)=>{
+		 				return {message: "No Artists Found"}		
+		 			})
+		 		}
 		 		this.setState({artist})
 
 		 		FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`;
@@ -75,11 +94,9 @@ class App extends Component {
 							<Profile artist={this.state.artist} />
 							<Gallery tracks={this.state.tracks} />
 						</div>
-						: <div></div>
+						: <div>{this.state.message}</div>
 				}
 			</div>
 		)
 	}
 }
-
-export default App;

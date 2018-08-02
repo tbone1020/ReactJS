@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './profile.css';
 
-class Profile extends Component {
-
-
+export default class Profile extends Component {
 	addCommasToNumber = num => {
 		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
 	}
-
-
-	
+  
 	render(){
 		let artist = {
 			name: '',
@@ -43,6 +39,3 @@ class Profile extends Component {
 			</div>
 		)
 	}
-}
-
-export default Profile;
