@@ -35,7 +35,6 @@ export default class Gallery extends Component {
 					return{
 						playing:false
 					}	
-				})
 			} else {
 				this.state.audio.pause();
 				audio.play();

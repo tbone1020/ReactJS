@@ -4,7 +4,6 @@ import { FormGroup,FormControl, InputGroup,Glyphicon } from 'react-bootstrap';
 import Profile from './Profile/profile';
 import Gallery from './Gallery/gallery';
 
-
 export default class App extends Component {
 	constructor(props) {
 		super(props);
@@ -12,7 +11,7 @@ export default class App extends Component {
 			query: '',
 			artist: null,
 			tracks: [],
-			message: ''
+			message: '',
 		}
 	}
 
@@ -21,8 +20,6 @@ export default class App extends Component {
 		const ACCESS_TOKEN = '';
 		const ALBUM_URL = 'https://api.spotify.com/v1/artists/'
 		let FETCH_URL = `${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
-
-
 		const MY_OPTIONS = {
 	      	method: 'GET',
 	      	headers:  {
@@ -57,6 +54,15 @@ export default class App extends Component {
 		 				return {message: "No Artists Found"}		
 		 			})
 		 		}
+		 		this.setState({artist})
+
+		 		FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`;
+				fetch(FETCH_URL,MY_OPTIONS)
+					.then(response => response.json())
+					.then(json => {
+						const { tracks } = json;
+						this.setState({tracks})
+					})
 		 	});
 	}
 
