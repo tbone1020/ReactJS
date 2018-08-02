@@ -1,0 +1,23 @@
+body {
+	background: #333;
+	color:white;
+}
+
+.app {
+	text-align:center;
+	padding:10px;
+}
+
+.App-title {
+	font-size: 30px;
+	padding-bottom: 15px;
+}
+
+.form-group {
+	width: 75%;
+	margin: auto;
+}
+.main-container {
+	max-width: 1200px;
+	margin: auto;
+}
